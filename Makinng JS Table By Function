@@ -32,3 +32,92 @@ console.log('Products sorted by price:');
 products.sort(compareBy('price'));
 
 console.table(products);
+
+
+javaScript Funtion Type
+
+function add(x,y){
+  return x+y;
+}
+let obj = new add(10,20);
+let result =add(10,30);
+console.log(result);
+console.log(obj)
+console.log (add.length);//2
+console.log (add.prototype)// empty object
+
+ES6- new.target
+
+function add(x,y){
+  console.log(new.target);
+  return x+y;
+}
+
+let result = add (10,20);
+let ES6 = new add(10,20);
+
+example make an error when some console calling constuctore
+
+function add(x,y){
+  if(!new.target){
+    throw 'The add function cannot be a called as a constuctore';
+  }
+  return x+y;
+}
+
+let obj = new add(10,20);
+console.log(obj);
+
+function methods:apply,call and bind
+
+let cat ={type:'cat' , sound: 'Meow'};
+let dog ={type:'dog' , sound: 'woof'};
+
+const say= function(message){
+  console.log (message);
+  console.log(this.type + ' say ' + this.sound);
+};
+
+say.apply(cat, ['What does a cat sound?']);//[] use for using apply method 
+say.call(dog,'Hello');// call method using string 
+
+
+the bind() method
+
+let car={
+  speed:5,
+  start:function(){
+    console.log('start with ' + this.speed + 'km/h')
+  }
+};
+
+let aircraft = {
+  speed:10,
+  fly: function(){
+    console.log('flying');
+  }
+};
+
+let taxiing =car.start.bind(aircraft);
+taxiing()// start with 10km/h
+
+car.start.call(aircraft)// 
+
+arrow function and this
+
+function Car(){
+  this.speed=0;
+
+  this.speedUp= function (speed){
+    this.speed = speed;
+    let self = this;
+    setTimeout(function (){
+      console.log(self.speed);
+    },1000);
+  };
+}
+
+
+let car = new Car();
+car.speedUp(50);
+
